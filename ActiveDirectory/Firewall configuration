@@ -1,0 +1,152 @@
+PowerShell 7 (Admin)
+# Specify the domain
+$Domain = "AD.LAB"
+ 
+# Specify the GPO name
+$GpoName = "Default Domain Policy"
+
+# Create a new GPO
+# New-GPO -Name $GpoName
+ 
+# Combine the domain and GPO name to create the $PolicyStore variable
+$PolicyStore = "$Domain\$GpoName"
+ 
+# Create a GPO session to open the GPO
+$GpoSession = Open-NetGPO -PolicyStore $PolicyStore
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "NTP" -Direction Inbound -LocalPort "123" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "NTP" -Direction Outbound -LocalPort "123" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SQL Server" -Direction Inbound -LocalPort "1433" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SQL Server Browser" -Direction Inbound -LocalPort "1434" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SQL Server Service Broker" -Direction Inbound -LocalPort "4022" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SQL Debugger RPC (TCP)" -Direction Inbound -LocalPort "135" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SQL Debugger RPC (UDP)" -Direction Inbound -LocalPort "135" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SQL Server Analysis Services" -Direction Inbound -LocalPort "2382" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SQL Server Analysis Services MDX" -Direction Inbound -LocalPort "2383" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "HTTP" -Direction Inbound -LocalPort 80 -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "WSUS" -Direction Inbound -LocalPort "8530" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "WSUS Secure" -Direction Inbound -LocalPort "8531" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "WinRM HTTP" -Direction Inbound -LocalPort "5985" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "WinRM HTTPS" -Direction Inbound -LocalPort "5986" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Kerberos TCP" -Direction Inbound -LocalPort "88" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Kerberos UDP" -Direction Inbound -LocalPort "88" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Kerberos kpasswd TCP" -Direction Inbound -LocalPort "464" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Kerberos kpasswd UDP" -Direction Inbound -LocalPort "464" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "LDAP" -Direction Inbound -LocalPort "389" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Global Catalog" -Direction Inbound -LocalPort "3268" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "PXE" -Direction Inbound -LocalPort "4011" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Client Notification" -Direction Inbound -LocalPort "10123" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "DHCP Server" -Direction Inbound -LocalPort 67 -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "DHCP Client" -Direction Outbound -LocalPort 68 -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "SMB" -Direction Inbound -LocalPort 445 -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "TFTP" -Direction Inbound -LocalPort 69 -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Wake-on-LAN" -Direction Inbound -LocalPort 9 -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Wake-up proxy" -Direction Inbound -LocalPort "25536" -Protocol UDP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Windows Update Delta Content" -Direction Inbound -LocalPort 8005 -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Remote Control" -Direction Inbound -LocalPort "2701" -Protocol TCP -Action Allow -Enabled True
+
+New-NetFirewallRule -GPOSession $GpoSession -DisplayName "Remote Desktop" -Direction Inbound -LocalPort "3389" -Protocol TCP -Action Allow -Enabled True
+
+Save-NetGPO -GPOSession $GpoSession
+exit
+
+
+Open Group management policy
+Computer Configuration
+	Policies
+	Windows Settings
+	Security Settings
+	Windows Defender Firewall with Advanced Security
+	Windows Defender Firewall with Advanced Security - LDAP://CN={
+	Inbound Rules
+	Outbound Rules
+Verify rules
+
+
+Right-click Inbound Rules
+	New Rule...
+	Custom
+	Next
+	All programs
+	Next
+	Protocol type: ICMPv4
+		Next
+		Any IP address
+		Next
+		Allow the connection
+		Next
+		Domain, Private, Public
+		Next
+		Name: ICMPv4
+		Finish
+
+Right-click Outbound Rules
+	New Rule...
+	Custom
+	Next
+	All programs
+	Next
+		Protocol type: ICMPv4
+		Next
+		Any IP address
+		Next
+		Allow the connection
+		Next
+		Domain, Private, Public
+		Next
+		Name: ICMPv4
+		Finish
+
+
+Right-click Inbound Rules
+	New Rule...
+		Predefined
+		File and Printer Sharing
+		Next
+		Next
+		Finish
+
+Right-click Inbound Rules
+	New Rule...
+		Predefined
+		Windows Management Instrumentation (WMI)
+		Next
+		Next
+		Finish
+
+Right-click Inbound Rules
+	New Rule...
+		Predefined
+		Remote Desktop
+		Next
+		Next
+Finish
