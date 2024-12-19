@@ -1,0 +1,149 @@
+
+OS: Windows Server 2022 - Standard Eval Desktop Exp
+Processors: 1
+Cores: 2
+RAM: 2GB
+HDD: 100GB NVMe
+
+
+Initial Configuration
+timedate.cpl - Adjust time zone
+Install Vmware Tools
+
+Set services - Bitlocker - ICMP 
+Windows PowerShell (Admin):
+# Set configuration for DPS service
+sc.exe config DPS start=auto
+sc.exe failure DPS reset=0 actions=restart/0/restart/0/restart/0
+
+# Set configuration for UsoSvc service
+sc.exe config UsoSvc start=auto
+sc.exe failure UsoSvc reset=0 actions=restart/0/restart/0/restart/0
+
+# Set configuration for UALSVC service
+sc.exe config UALSVC start=auto
+sc.exe failure UALSVC reset=0 actions=restart/0/restart/0/restart/0
+
+# Set configuration for MSDTC service
+sc.exe config MSDTC start=auto
+sc.exe failure MSDTC reset=0 actions=restart/0/restart/0/restart/0
+
+# Set configuration for BITS service
+sc.exe config BITS start=auto
+sc.exe failure BITS reset=0 actions=restart/0/restart/0/restart/0
+
+# Set rules for ICMP (Allow Ping)
+New-NetFirewallRule -DisplayName "Inbound ICMPv4" -Direction Inbound -Protocol ICMPv4 -Action Allow -Profile Any -Enabled True
+New-NetFirewallRule -DisplayName "Outbound ICMPv4" -Direction Outbound -Protocol ICMPv4 -Action Allow -Profile Any -Enabled True
+
+# Set Service Pipe Timout to 90 seconds (1.5 minutes)
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control" -Name "ServicesPipeTimeout" -Value 0x15f90 -Type DWord
+
+# Disable Shipped With Reserved Storage
+DISM /Online /Set-ReservedStorageState /State:Disabled
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager" /v "ShippedWithReserves" /t REG_DWORD /d 0 /f
+
+# Disable UAC prompt for Administrators
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
+
+# Install the .NET Framework 3.5 Core
+Install-WindowsFeature -Name NET-Framework-Core -Source D:\Sources\SxS
+
+# Install BitLocker and BitLocker Management Tools
+Install-WindowsFeature BitLocker -IncludeAllSubFeature -IncludeManagementTools -Restart
+
+
+Re Partition Recovery:
+https://support.microsoft.com/en-us/topic/kb5028997-instructions-to-manually-resize-your-partition-to-install-the-winre-update-400faa27-9343-461c-ada9-24c8229763bf
+
+cmd (Admin)
+:: Disable Windows Recovery Environment (WinRE)
+reagentc /disable
+:: Start Diskpart
+diskpart
+sel disk 0
+sel part 3
+shrink desired=250 minimum=250
+sel part 4
+del part override
+create part primary id=de94bba4-06d1-4d40-a16a-bfd50179d6ac
+gpt attributes=0x8000000000000001
+format quick fs=ntfs label="Windows RE tools"
+exit
+:: Enable Windows Recovery Environment (WinRE)
+reagentc /enable
+:: Restart the system
+shutdown /r /t 1
+
+ADMX Templates update
+Powershell 7 (Admin)
+
+PowerShell 7 (Admin)
+$sourceDir = "C:\Temp\Group Policy\ADMX Templates"
+$destinationDir = "C:\Windows\PolicyDefinitions"
+
+# Get all .admx files in the source directory
+$admxFiles = Get-ChildItem -Path $sourceDir -Filter *.admx -Recurse
+
+# Loop through each .admx file
+foreach ($admxFile in $admxFiles) {
+    # Construct the destination path for the .admx file
+    $destinationFile = Join-Path -Path $destinationDir -ChildPath $admxFile.Name
+	
+    # Copy the .admx file to the destination
+    Copy-Item -Path $admxFile.FullName -Destination $destinationFile -Force -Verbose
+	
+    # Get the corresponding .adml folder
+    $admlFolder = Join-Path -Path $admxFile.Directory.FullName -ChildPath "en-US"
+	
+    # If the .adml folder exists, copy .adml files to the destination en-US folder
+    if (Test-Path $admlFolder) {
+        $admlFiles = Get-ChildItem -Path $admlFolder -Filter *.adml
+        foreach ($admlFile in $admlFiles) {
+            $destinationAdmlFile = Join-Path -Path $destinationDir -ChildPath ("en-US\" + $admlFile.Name)
+            Copy-Item -Path $admlFile.FullName -Destination $destinationAdmlFile -Force -Verbose
+        }
+    }
+}
+
+
+
+
+
+
+Personal Preferences
+
+Disable Server Manager auto logon
+
+Rename C:\ drive name to Windows
+
+Set system power options - never sleep
+
+Install Powershell 7
+Install Notepad++
+Install Visual C++ 2015-2022 (x86 & x64)
+
+Install Edge for Business
+Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"C:\MicrosoftEdgeEnterpriseX64.msi`" /qn /quiet /norestart DONOTCREATEDESKTOPSHORTCUT=true" -Wait
+
+Eval to Standard (Need 2 restarts)
+DISM /online /Set-Edition:ServerStandard /ProductKey:VDYBN-27WPP-V4HQT-9VMD4-VMK7H /AcceptEula /NoRestart
+
+Check for and Install Windows Updates
+Disable AzureArcSysTray - Startup applications
+
+Remove Edge Standard(stable)
+**Remove because can cause problems with sysprep** 
+Windows PowerShell (Admin) because of cross-compatibility:
+net stop wuauserv
+Remove-Item C:\Windows\SoftwareDistribution\* -Recurse -Force
+net start wuauserv
+Get-AppxPackage -Name Microsoft.MicrosoftEdge.Stable | Remove-AppxPackage
+Stop-Computer
+
+
+Final Steps:
+Create a Full clone - Template
+Proceed with the machines with cloning current machine
+After finilise lab machines VMs configuration -power on and sysprep all machines
+
