@@ -1,0 +1,155 @@
+
+Clone from Template VM
+Computer Name: DC01
+Domain Name: AD.LAB
+NetBios Name: ADLAB
+Domain Admin Account schema: george.phoenix.admin
+
+Set IP according to configured GW01 VM
+
+Powershell 7 (Admin)
+New-NetIPAddress -InterfaceAlias "Ethernet0" -IPAddress 192.168.0.10 -PrefixLength 24 -DefaultGateway 192.168.0.1
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet0" -ServerAddresses ("127.0.0.1")
+$base = "HKLM:SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces"
+
+$interfaces = Get-ChildItem $base | Select -ExpandProperty PSChildName
+
+foreach($interface in $interfaces) {
+    Set-ItemProperty -Path "$base\$interface" -Name "NetbiosOptions" -Value 2
+}
+
+
+Disable Allow Crypto
+
+https://learn.microsoft.com/en-us/services-hub/unified/health/remediation-steps-ad/disable-the-allownt4crypto-setting-on-all-affected-domain-controllers#suggested-actions
+
+# Disable the AllowNT4Crypto setting on the Domain Controller
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
+
+Restart-Computer -Force
+
+Install Roles and DNS
+Powershell 7(Admin)
+Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
+Install-ADDSForest -DomainName AD.LAB -ForestMode Default -DomainMode Default -DomainNetbiosName ADLAB -InstallDns
+
+Set Alternate DNS
+Alternate DNS server: 8.8.8.8
+
+Windows Administrative Tools
+	DNS
+Double-click DC01
+Double-click Reverse Lookup Zones
+Right-click Reverse Lookup Zones
+	New Zone...
+	Next
+	Primary zone
+	To all DNS servers running on domain controllers in this forest: AD.LAB
+	IPv4 Reverse Lookup Zone
+	Next
+	Network ID: 192.168.0
+	Next
+	Allow only secure dynamic updates
+	Next
+	Finish
+	
+Right-click DC01
+	Properties
+	Forwarders tab
+	Edit...
+	8.8.8.8 
+		Enter
+	8.8.4.4 
+		Enter
+	OK
+	Apply
+	OK
+
+Windows Administrative Tools	
+	ADSI Edit
+Right-click ADSI Edit
+Connect to...
+Select a well known Naming Context:
+	Configuration
+		OK
+	Configuration
+	CN=Configuration
+	CN=DisplaySpecifiers
+	CN=409
+	CN=organizationalUnit
+		extraColumns
+		Edit
+		Value to add: operatingSystem,Operating System,0,200,0
+		Add
+		OK
+		Apply
+		OK
+
+
+Powershell 7 (Admin)
+Import-Module ActiveDirectory
+
+$GivenName = "George"
+$SurName = "Phoenix"
+$FullUserName = "george.phoenix"
+
+Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,DC=AD,DC=LAB" -Description "Primary Domain Controller"
+
+New-ADOrganizationalUnit -Name "LAB"
+New-ADOrganizationalUnit -Name "Clients" -Path "OU=LAB,DC=AD,DC=LAB"
+New-ADOrganizationalUnit -Name "Groups" -Path "OU=LAB,DC=AD,DC=LAB"
+New-ADOrganizationalUnit -Name "Member Servers" -Path "OU=LAB,DC=AD,DC=LAB"
+New-ADOrganizationalUnit -Name "Users" -Path "OU=LAB,DC=AD,DC=LAB"
+New-ADOrganizationalUnit -Name "General Use Accounts" -Path "OU=Users,OU=LAB,DC=AD,DC=LAB"
+New-ADOrganizationalUnit -Name "Administrative Accounts" -Path "OU=Users,OU=LAB,DC=AD,DC=LAB"
+New-ADOrganizationalUnit -Name "Special Use Accounts" -Path "OU=Users,OU=LAB,DC=AD,DC=LAB"
+
+New-ADUser -Name $GivenName" "$SurName".admin" -AccountPassword(ConvertTo-SecureString -String "password" -AsPlainText -Force) -DisplayName $GivenName" "$SurName".admin" -GivenName $GivenName -Surname $SurName".admin" -Description "Enterprise Administrator" -Path "OU=Administrative Accounts,OU=Users,OU=LAB,DC=AD,DC=LAB" -Enabled $true -SamAccountName $FullUserName".admin" -UserPrincipalName "$FullUserName.admin@AD.LAB"
+
+Set-ADUser -Identity $FullUserName".admin" -PasswordNeverExpires $true
+
+New-ADUser -Name $GivenName" "$SurName -AccountPassword(ConvertTo-SecureString -String "password" -AsPlainText -Force) -DisplayName $GivenName" "$SurName -GivenName $GivenName -Surname $SurName -Description "General User Account" -Path "OU=General Use Accounts,OU=Users,OU=LAB,DC=AD,DC=LAB" -Enabled $true -SamAccountName $FullUserName -UserPrincipalName "$FullUserName@AD.LAB"
+
+New-ADGroup -Name "SQL Admins" -SamAccountName "SQL Admins" -GroupCategory Security -GroupScope Global -DisplayName "SQL Admins" -Path "OU=Groups,OU=LAB,DC=AD,DC=LAB" -Description "Members of this group are SQL Administrators"
+
+Add-ADGroupMember -Identity 'Domain Admins' -Members $FullUserName".admin"
+Add-ADGroupMember -Identity 'Enterprise Admins' -Members $FullUserName".admin"
+Add-ADGroupMember -Identity 'Schema Admins' -Members $FullUserName".admin"
+Add-ADGroupMember -Identity 'SQL Admins' -Members $FullUserName".admin"
+
+New-ADUser -Name "Svc.TaskSequence" -AccountPassword(ConvertTo-SecureString -String "password" -AsPlainText -Force) -GivenName Svc -Surname TaskSequence -Description "Task Sequence Account" -Path "OU=Special Use Accounts,OU=Users,OU=LAB,DC=AD,DC=LAB" -Enabled $true -SamAccountName svc.tasksequence -UserPrincipalName svc.tasksequence@AD.LAB
+
+Set-ADUser -Identity svc.tasksequence -PasswordNeverExpires $true
+
+
+Start
+Active Directory Users and Computers
+Maximize
+	Expand MDT.LAB
+		Click Domain Controllers
+			View
+				Add/Remove Columns...
+					Operating System
+						Add ->
+							OK
+		Expand LAB
+			Click Member Servers
+				View
+					Add/Remove Columns...
+						Operating System
+							Add ->
+								OK	
+Close Active Directory Users and Computers
+
+Set Time
+cmnd(Admin)
+w32tm /config /manualpeerlist:"time.google.com" /syncfromflags:manual /reliable:YES /update
+
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient" /v SpecialPollInterval /t REG_DWORD /d 900 /f
+
+net stop w32time
+net start w32time
+
+w32tm /query /configuration
+w32tm /tz
+exit
