@@ -1,8 +1,7 @@
-Computer Name: GW01
-
 Clone from Template VM
-Add a second Network adapter - NAT
 
+Computer Name: GW01
+Add a second Network adapter - NAT
 
 Powershell 7 (Admin)
 New-NetIPAddress -InterfaceAlias "Ethernet0" -IPAddress 192.168.0.1 -PrefixLength 24
@@ -16,27 +15,25 @@ foreach($interface in $interfaces) {
 }
 
 
-DHCP Scope Set
+Set DHCP Scope
 Login as Enterprise Admin
 Powershell 7 (Admin)
 Install-WindowsFeature DHCP -IncludeManagementTools
-ServerManager
+exit
 
-Server Manager
-Click Flag alert
+Open ServerManager and Click on the Flag alert
 	Complete DHCP configuration
 	Next
 	Commit
 	Close
 
-Start
-DHCP
+Start menu - Open DHCP
 	Expand dc01.mdt.lab
 	Expand IPv4
 	Click then Right-click IPv4
 	New Scope...
 	Next
-	MDT Lab Scope
+	AD Lab Scope
 	Next
 		Start IP address: 192.168.0.50
 		End IP address: 192.168.0.254
@@ -66,54 +63,46 @@ Add to Domain - AD.LAB
 
 $securePassword = ConvertTo-SecureString "--put--password--here--" -AsPlainText -Force; $credential = New-Object System.Management.Automation.PSCredential("AD.LAB\george.phoenix.admin", $securePassword); Add-Computer -DomainName AD.LAB -OUPath "OU=Member Servers,OU=LAB,DC=AD,DC=LAB" -Credential $credential -Restart -Force
 
-
 gpupdate /force
 DEL "C:\Users\%USERNAME%\Desktop\Microsoft Edge.lnk" /Q
 shutdown /l
 
-
+Time Sync with Domain Controller
 cmd (Admin)
-		
 net Time \\DC01.AD.LAB /Set /Y
-
 w32tm /query /source
-
 w32tm /resync
 exit
 
-
 Configure Routing
-
 Powershell 7 (Admin)
 Install-WindowsFeature Routing -IncludeManagementTools
-ServerManager
+exit
 
-
-Click the Flag alert
+Open ServerManager and Click the Flag alert
 Open the Getting Started Wizard
 Deploy both DirectAccess and VPN (recommended)
 	Cancel
 	OK
 Close Server Manager
 
-Start
-Windows Administrative Tools
+Start menu -Windows Administrative Tools
 	Pin Routing and Remote Access to Start
-	Open Routing and Remote Access
 
+Open Routing and Remote Access
 Click then Right-click GW01 (local)
 Refresh
 Right-click GW01
 Configure and Enable Routing and Remote Access
 	Next
-		Network address translation (NAT)
-			Next
-				Ethernet1
-					Next
-						Finish
+	Network address translation (NAT)
+	Next
+	Ethernet1
+	Next
+	Finish
 Close Routing and Remote Access
 
-
+Set Remote Access and Remote Access Management services
 # Set configuration for RemoteAccess service
 sc.exe config RemoteAccess start=delayed-auto
 sc.exe failure RemoteAccess reset=0 actions=restart/0/restart/0/restart/0
