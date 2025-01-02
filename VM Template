@@ -1,10 +1,8 @@
-
 OS: Windows Server 2022 - Standard Eval Desktop Exp
 Processors: 1
 Cores: 2
 RAM: 2GB
-HDD: 100GB NVMe
-
+HDD: 60GB NVMe
 
 Initial Configuration
 timedate.cpl - Adjust time zone
@@ -76,10 +74,10 @@ reagentc /enable
 shutdown /r /t 1
 
 ADMX Templates update
-Powershell 7 (Admin)
+Download latest ADMX Templates and save at C:\Temp\Group_Policy\ADMX_Templates 
 
 PowerShell 7 (Admin)
-$sourceDir = "C:\Temp\Group Policy\ADMX Templates"
+$sourceDir = "C:\Temp\Group_Policy\ADMX_Templates"
 $destinationDir = "C:\Windows\PolicyDefinitions"
 
 # Get all .admx files in the source directory
@@ -107,32 +105,20 @@ foreach ($admxFile in $admxFiles) {
 }
 
 
-
-
-
-
-Personal Preferences
-
-Disable Server Manager auto logon
-
-Rename C:\ drive name to Windows
-
-Set system power options - never sleep
-
-Install Powershell 7
-Install Notepad++
-Install Visual C++ 2015-2022 (x86 & x64)
-
-Install Edge for Business
+Personal Preferences:
+1. Disable Server Manager auto logon
+2. Rename C:\ drive name to Windows
+3. Set system power options - never sleep
+4. Install Powershell 7
+5. Install Notepad++
+6. Install Visual C++ 2015-2022 (x86 & x64)
+7. Install Edge for Business
 Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"C:\MicrosoftEdgeEnterpriseX64.msi`" /qn /quiet /norestart DONOTCREATEDESKTOPSHORTCUT=true" -Wait
-
-Eval to Standard (Need 2 restarts)
+8. Eval to Standard (Need 2 restarts)
 DISM /online /Set-Edition:ServerStandard /ProductKey:VDYBN-27WPP-V4HQT-9VMD4-VMK7H /AcceptEula /NoRestart
-
-Check for and Install Windows Updates
-Disable AzureArcSysTray - Startup applications
-
-Remove Edge Standard(stable)
+9. Check for and Install Windows Updates
+10. Disable AzureArcSysTray - Startup applications
+11. Remove Edge Standard(stable)
 **Remove because can cause problems with sysprep** 
 Windows PowerShell (Admin) because of cross-compatibility:
 net stop wuauserv
@@ -140,7 +126,6 @@ Remove-Item C:\Windows\SoftwareDistribution\* -Recurse -Force
 net start wuauserv
 Get-AppxPackage -Name Microsoft.MicrosoftEdge.Stable | Remove-AppxPackage
 Stop-Computer
-
 
 Final Steps:
 Create a Full clone - Template
