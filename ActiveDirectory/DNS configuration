@@ -1,11 +1,11 @@
-
 Clone from Template VM
+
 Computer Name: DC01
 Domain Name: AD.LAB
 NetBios Name: ADLAB
-Domain Admin Account schema: george.phoenix.admin
+Domain Admin Account schema: name.surname.admin
 
-Set IP according to configured GW01 VM
+Set IP according to configured GW01 (Gateway - DHCP server VM)
 
 Powershell 7 (Admin)
 New-NetIPAddress -InterfaceAlias "Ethernet0" -IPAddress 192.168.0.10 -PrefixLength 24 -DefaultGateway 192.168.0.1
@@ -24,8 +24,8 @@ Disable Allow Crypto
 https://learn.microsoft.com/en-us/services-hub/unified/health/remediation-steps-ad/disable-the-allownt4crypto-setting-on-all-affected-domain-controllers#suggested-actions
 
 # Disable the AllowNT4Crypto setting on the Domain Controller
+Powershell (Admin)
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
-
 Restart-Computer -Force
 
 Install Roles and DNS
@@ -125,21 +125,21 @@ Set-ADUser -Identity svc.tasksequence -PasswordNeverExpires $true
 Start
 Active Directory Users and Computers
 Maximize
-	Expand MDT.LAB
-		Click Domain Controllers
-			View
-				Add/Remove Columns...
-					Operating System
-						Add ->
-							OK
-		Expand LAB
-			Click Member Servers
-				View
-					Add/Remove Columns...
-						Operating System
-							Add ->
-								OK	
+	Expand AD.LAB
+	Click Domain Controllers
+	View
+	Add/Remove Columns...
+	Operating System
+	Add ->	OK
+	
+	Expand LAB
+	Click Member Servers
+	View
+	Add/Remove Columns...
+	Operating System
+	Add ->	OK	
 Close Active Directory Users and Computers
+
 
 Set Time
 cmnd(Admin)
