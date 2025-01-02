@@ -1,7 +1,7 @@
 Clone from Template VM
 Computer Name: FS01
 
-Initialize G Drive
+Initialize the G Drive from Disk Management
 
 Powershell 7 (Admin)
 Install-WindowsFeature FS-FileServer
@@ -17,5 +17,4 @@ Volumes
 	Configure Data Deduplication...
 	Set Deduplication Schedule
 	Enable throughput optimization
-	OK
-OK
+	OK--> OK
