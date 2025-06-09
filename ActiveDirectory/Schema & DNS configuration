@@ -1,37 +1,29 @@
-Clone from Template VM
-
-Computer Name: DC01
-Domain Name: AD.LAB
-NetBios Name: ADLAB
-Domain Admin Account schema: name.surname.admin
-
-Set IP according to configured GW01 (Gateway - DHCP server VM)
-
-Powershell 7 (Admin)
-New-NetIPAddress -InterfaceAlias "Ethernet0" -IPAddress 192.168.0.10 -PrefixLength 24 -DefaultGateway 192.168.0.1
-Set-DnsClientServerAddress -InterfaceAlias "Ethernet0" -ServerAddresses ("127.0.0.1")
-$base = "HKLM:SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces"
-
-$interfaces = Get-ChildItem $base | Select -ExpandProperty PSChildName
-
-foreach($interface in $interfaces) {
-    Set-ItemProperty -Path "$base\$interface" -Name "NetbiosOptions" -Value 2
-}
+Set Static IP
+Example IP adrress: 192.168.0.10
 
 
 Disable Allow Crypto
-
 https://learn.microsoft.com/en-us/services-hub/unified/health/remediation-steps-ad/disable-the-allownt4crypto-setting-on-all-affected-domain-controllers#suggested-actions
 
 # Disable the AllowNT4Crypto setting on the Domain Controller
 Powershell (Admin)
+
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
 Restart-Computer -Force
 
 Install Roles and DNS
 Powershell 7(Admin)
+
 Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
-Install-ADDSForest -DomainName AD.LAB -ForestMode Default -DomainMode Default -DomainNetbiosName ADLAB -InstallDns
+Install-ADDSForest -DomainName ADLAB.HOME -ForestMode Default -DomainMode Default -DomainNetbiosName ADLAB -InstallDns
+
+Setup ntp server
+Powershell 7(Admin)
+
+w32tm /config /manualpeerlist:"time.windows.com" /syncfromflags:MANUAL
+net stop w32time
+net start w32time
+w32tm /resync
 
 Set Alternate DNS
 Alternate DNS server: 8.8.8.8
@@ -44,7 +36,7 @@ Right-click Reverse Lookup Zones
 	New Zone...
 	Next
 	Primary zone
-	To all DNS servers running on domain controllers in this forest: AD.LAB
+	To all DNS servers running on domain controllers in this forest: ADLAB.HOME
 	IPv4 Reverse Lookup Zone
 	Next
 	Network ID: 192.168.0
@@ -57,7 +49,7 @@ Right-click DC01
 	Properties
 	Forwarders tab
 	Edit...
-	8.8.8.8 
+	1.1.1.1 
 		Enter
 	8.8.4.4 
 		Enter
@@ -89,20 +81,20 @@ Select a well known Naming Context:
 Powershell 7 (Admin)
 Import-Module ActiveDirectory
 
-$GivenName = "George"
+$GivenName = "GM"
 $SurName = "Phoenix"
 $FullUserName = "george.phoenix"
 
-Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,DC=AD,DC=LAB" -Description "Primary Domain Controller"
+Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,DC=ADLAB,DC=HOME" -Description "Primary Domain Controller"
 
-New-ADOrganizationalUnit -Name "LAB"
-New-ADOrganizationalUnit -Name "Clients" -Path "OU=LAB,DC=AD,DC=LAB"
-New-ADOrganizationalUnit -Name "Groups" -Path "OU=LAB,DC=AD,DC=LAB"
-New-ADOrganizationalUnit -Name "Member Servers" -Path "OU=LAB,DC=AD,DC=LAB"
-New-ADOrganizationalUnit -Name "Users" -Path "OU=LAB,DC=AD,DC=LAB"
-New-ADOrganizationalUnit -Name "General Use Accounts" -Path "OU=Users,OU=LAB,DC=AD,DC=LAB"
-New-ADOrganizationalUnit -Name "Administrative Accounts" -Path "OU=Users,OU=LAB,DC=AD,DC=LAB"
-New-ADOrganizationalUnit -Name "Special Use Accounts" -Path "OU=Users,OU=LAB,DC=AD,DC=LAB"
+New-ADOrganizationalUnit -Name "Hierarchy"
+New-ADOrganizationalUnit -Name "Clients" -Path "OU=Hierarchy,DC=ADLAB,DC=HOME"
+New-ADOrganizationalUnit -Name "Groups" -Path "OU=Hierarchy,DC=ADLAB,DC=HOME"
+New-ADOrganizationalUnit -Name "Member Servers" -Path "OU=Hierarchy,DC=ADLAB,DC=HOME"
+New-ADOrganizationalUnit -Name "Users" -Path "OU=Hierarchy,DC=ADLAB,DC=HOME"
+New-ADOrganizationalUnit -Name "General Use Accounts" -Path "OU=Hierarchy,DC=ADLAB,DC=HOME"
+New-ADOrganizationalUnit -Name "Administrative Accounts" -Path "OU=Hierarchy,DC=ADLAB,DC=HOME"
+New-ADOrganizationalUnit -Name "Special Use Accounts" -Path "OU=Hierarchy,DC=ADLAB,DC=HOME"
 
 New-ADUser -Name $GivenName" "$SurName".admin" -AccountPassword(ConvertTo-SecureString -String "password" -AsPlainText -Force) -DisplayName $GivenName" "$SurName".admin" -GivenName $GivenName -Surname $SurName".admin" -Description "Enterprise Administrator" -Path "OU=Administrative Accounts,OU=Users,OU=LAB,DC=AD,DC=LAB" -Enabled $true -SamAccountName $FullUserName".admin" -UserPrincipalName "$FullUserName.admin@AD.LAB"
 
