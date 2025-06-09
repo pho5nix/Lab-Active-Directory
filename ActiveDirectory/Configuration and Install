@@ -119,10 +119,9 @@ New-ADOrganizationalUnit -Name "Tier2-Local-Admin-Accounts" -Path $tierTwoOU
 New-ADOrganizationalUnit -Name "Tier2-Security-Groups" -Path $tierTwoOU
 
 
-# Create Domain
+# Create Domain Admin
 
-
-New-ADUser -Name $GivenName" "$SurName" - Tier0 Domain Admin" -AccountPassword(ConvertTo-SecureString -String "password!@#1" -AsPlainText -Force) -DisplayName $GivenName" "$SurName"- Tier0 Domain Admin" -GivenName $GivenName -Surname "$SurName" - Tier0 Doamin Admin" -Description "Domain Administrator" -Path "OU=Tier0-Admin-Accounts,OU=Tier0-Control,OU=Hierarchy-Top,DC=ADLAB,DC=HOME" -Enabled $true -SamAccountName "admin-"$FullUserName" -UserPrincipalName "admin-$FullUserName@ADLAB.HOME"
+New-ADUser -Name $GivenName" "$SurName" - Tier0 Domain Admin" -AccountPassword(ConvertTo-SecureString -String "password!@#1" -AsPlainText -Force) -DisplayName $GivenName" "$SurName" - Tier0 Domain Admin" -GivenName $GivenName -Surname $SurName" - Tier0 Doamin Admin" -Description "Domain Administrator" -Path "OU=Tier0-Admin-Accounts,OU=Tier0-Control,OU=Hierarchy-Top,DC=ADLAB,DC=HOME" -Enabled $true -SamAccountName "admin-"$FullUserName"" -UserPrincipalName "admin-"$FullUserName"@ADLAB.HOME"
 
 Set-ADUser -Identity $FullUserName".admin" -PasswordNeverExpires $true
 
