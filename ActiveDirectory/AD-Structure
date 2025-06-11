@@ -56,18 +56,20 @@ The most important tip is to group user and computer objects into separate organ
 Dedicated service account OUs at each tier to prevent credential theft through service account compromise.
 
 3. Emergency Access
-Break-glass accounts for emergency access when normal authentication fails [Active Directory OU: Optimizing Organizational Structure](https://www.cayosoft.com/active-directory-ou/).
+Break-glass accounts for emergency access when normal authentication fails 
+[Active Directory OU: Optimizing Organizational Structure](https://www.cayosoft.com/active-directory-ou/).
 
 Implementation Best Practices:
 
 **Naming Convention**
-- Use descriptive, consistent naming: `OU=Tier0-Domain-Controllers
+- Use descriptive, consistent naming: "OU=Tier0-Domain-Controllers"
 - Include tier level for easy identification
 - Use hyphens for readability
 
 **Group Policy Strategy**
 Link GPOs to OUs rather than containers, use inheritance for efficient policy management 
-[tenfold Security](https://www.tenfold-security.com/en/organizational-unit/)[Active Directory Pro](https://activedirectorypro.com/active-directory-management-tips/).
+[tenfold Security](https://www.tenfold-security.com/en/organizational-unit/)
+[Active Directory Pro](https://activedirectorypro.com/active-directory-management-tips/).
 
 **Administrative Delegation**
 Delegate permissions to security groups rather than individual accounts for easier management 
@@ -76,7 +78,6 @@ Delegate permissions to security groups rather than individual accounts for easi
 **Protection Settings**
 Enable "Protect object from accidental deletion" on all critical OUs 
 [Reviewing OU Design Concepts | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/reviewing-ou-design-concepts).
-
 
 **Security Enhancements for Windows Server 2025:**
 New Windows Server 2025 features include delegated Managed Service Accounts (dMSA), improved Kerberos settings, and enhanced LAPS integration 
