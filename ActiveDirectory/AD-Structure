@@ -1,4 +1,4 @@
-Tier 0 (Control) - Domain Identity Infrastructure
+**Tier 0 (Control) - Domain Identity Infrastructure**
 
 OU=Tier0-Control,DC=domain,DC=com
 ├── OU=Domain-Controllers (keep default but organize under Tier0)
