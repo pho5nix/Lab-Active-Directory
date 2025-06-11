@@ -1,3 +1,6 @@
+Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
+Install-ADDSForest -DomainName ADLAB.HOME -ForestMode Default -DomainMode Default -DomainNetbiosName ADLAB -InstallDns
+
 Import-Module ActiveDirectory
 
 $givenName = "GM"
@@ -45,7 +48,7 @@ Add-ADGroupMember -Identity 'Domain Admins' -Members "admin-"$fullUserName
 Add-ADGroupMember -Identity 'Enterprise Admins' -Members "admin-"$fullUserName
 
 # Create a Standard account
-New-ADUser -Name $givenName" "$surName -AccountPassword(ConvertTo-SecureString -String "password" -AsPlainText -Force) -DisplayName $givenName" "$surName -GivenName $givenName -Surname $surName -Description "General User Account" -Path "OU=General Use Accounts,OU=Users,OU=LAB,DC=AD,DC=LAB" -Enabled $true -SamAccountName $fullUserName -UserPrincipalName "$fullUserName@AD.LAB"
+New-ADUser -Name $givenName" "$surName -AccountPassword(ConvertTo-SecureString -String "password" -AsPlainText -Force) -DisplayName $givenName" "$surName -GivenName $givenName -Surname $surName -Description "General User Account" -Path "OU=AD-Standard-Userss,OU=Tier2-Users,OU=Hierarchy,DC=ADLAB,DC=HOME" -Enabled $true -SamAccountName $fullUserName -UserPrincipalName "$fullUserName@ADLAB.HOME"
 
 # Create AD Group
 # New-ADGroup -Name "SQL Admins" -SamAccountName "SQL Admins" -GroupCategory Security -GroupScope Global -DisplayName "SQL Admins" -Path "OU=Groups,OU=LAB,DC=AD,DC=LAB" -Description "Members of this group are SQL Administrators"
