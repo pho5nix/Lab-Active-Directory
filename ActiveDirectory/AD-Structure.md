@@ -18,11 +18,11 @@
 
 └── OU=Tier0-Admin-Accounts
 
-    ├── OU=Domain-Enterprise-Admins
+│   ├── OU=Domain-Enterprise-Admins                              
    
-    ├── OU=Schema-Admins
+│   ├── OU=Schema-Admins
     
-    └── OU=Break-Glass-Accounts
+│   └── OU=Break-Glass-Accounts
 
 ## Tier 1 (Management) - Enterprise Infrastructure
 
@@ -50,11 +50,11 @@
 
 └── OU=Tier1-Admin-Accounts
 
-   ├── OU=Server-Administrators
+│   ├── OU=Server-Administrators
     
-   ├── OU=Database-Administrators
+│   ├── OU=Database-Administrators
     
-   └── OU=Application-Administrators
+│   └── OU=Application-Administrators
 
 
 ## Tier 2 (Data/Workload) - End User Environment
@@ -71,7 +71,7 @@
 
 │   └── OU=Disabled-Users
 
-├── OU=Workstations
+├── OU=Endpoints
 
 │   ├── OU=Workstations
 
