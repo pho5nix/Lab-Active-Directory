@@ -1,4 +1,4 @@
-Tier 0 (Control) - Domain Identity Infrastructure
+# Tier 0 (Control) - Domain Identity Infrastructure
 
 OU=Tier0-Control,DC=domain,DC=com
 ├── OU=Domain-Controllers (keep default but organize under Tier0)
@@ -12,7 +12,7 @@ OU=Tier0-Control,DC=domain,DC=com
     ├── OU=Schema-Admins
     └── OU=Break-Glass-Accounts
 
-Tier 1 (Management) - Enterprise Infrastructure
+# Tier 1 (Management) - Enterprise Infrastructure
 
 OU=Tier1-Management,DC=domain,DC=com
 ├── OU=Tier1-Servers
@@ -30,7 +30,7 @@ OU=Tier1-Management,DC=domain,DC=com
     ├── OU=Database-Administrators
     └── OU=Application-Administrators
 
-Tier 2 (Data/Workload) - End User Environment
+# Tier 2 (Data/Workload) - End User Environment
 
 OU=Tier2-Users,DC=domain,DC=com
 ├── OU=Standard-Users
@@ -61,32 +61,31 @@ Break-glass accounts for emergency access when normal authentication fails
 
 Implementation Best Practices:
 
-**Naming Convention**
+# Naming Convention
 - Use descriptive, consistent naming: "OU=Tier0-Domain-Controllers"
 - Include tier level for easy identification
 - Use hyphens for readability
 
-**Group Policy Strategy**
+# Group Policy Strategy
 Link GPOs to OUs rather than containers, use inheritance for efficient policy management 
 [tenfold Security](https://www.tenfold-security.com/en/organizational-unit/)
 [Active Directory Pro](https://activedirectorypro.com/active-directory-management-tips/).
 
-**Administrative Delegation**
+# Administrative Delegation
 Delegate permissions to security groups rather than individual accounts for easier management 
 [Reviewing OU Design Concepts | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/reviewing-ou-design-concepts).
 
-**Protection Settings**
+# Protection Settings
 Enable "Protect object from accidental deletion" on all critical OUs 
 [Reviewing OU Design Concepts | Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/reviewing-ou-design-concepts).
 
-**Security Enhancements for Windows Server 2025:**
+# Security Enhancements for Windows Server 2025:
 New Windows Server 2025 features include delegated Managed Service Accounts (dMSA), improved Kerberos settings, and enhanced LAPS integration 
 [Windows Server 2025, security baseline | Microsoft Community Hub](https://techcommunity.microsoft.com/blog/microsoft-security-baselines/windows-server-2025-security-baseline/4358733).
 
-Additional Considerations:
+# Additional Considerations:
 
 - LAPS Implementation: Deploy Local Administrator Password Solution across all computer OUs
 - Authentication Policies: Implement Kerberos authentication policies for Tier 0 protection
 - Audit Policies: Enhanced auditing for privileged account activities
 - Time-bound Access: Consider implementing Just-In-Time (JIT) access for administrative accounts
-
