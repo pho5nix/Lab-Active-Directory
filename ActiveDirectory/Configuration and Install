@@ -1,30 +1,3 @@
-Set Static IP
-Example IP adrress: 192.168.0.10
-
-
-Disable Allow Crypto
-https://learn.microsoft.com/en-us/services-hub/unified/health/remediation-steps-ad/disable-the-allownt4crypto-setting-on-all-affected-domain-controllers#suggested-actions
-
-# Disable the AllowNT4Crypto setting on the Domain Controller
-Powershell (Admin)
-
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
-Restart-Computer -Force
-
-Install Roles and DNS
-Powershell 7(Admin)
-
-Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
-Install-ADDSForest -DomainName ADLAB.HOME -ForestMode Default -DomainMode Default -DomainNetbiosName ADLAB -InstallDns
-
-# Configure NTP server
-Powershell 7(Admin)
-
-w32tm /config /manualpeerlist:"time.windows.com" /syncfromflags:MANUAL
-net stop w32time
-net start w32time
-w32tm /resync
-
 # Create reverse lookup zone
 Windows Administrative Tools
 	DNS
@@ -42,19 +15,6 @@ Right-click Reverse Lookup Zones
 	Allow only secure dynamic updates
 	Next
 	Finish
-
-# Add DNS forwarders 
-Right-click DC01
-	Properties
-	Forwarders tab
-	Edit...
-	1.1.1.1 
-		Enter
-	208.67.222.222 
-		Enter
-	OK
-	Apply
-	OK
 
 # Add preffered columns to ADSI
 Windows Administrative Tools	
@@ -78,46 +38,6 @@ Select a well known Naming Context:
 		OK
 
 
-# Create the structure
-Powershell 7 (Admin)
-
-Import-Module ActiveDirectory
-
-$GivenName = "GM"
-$SurName = "Phoenix"
-$FullUserName = "gmphoenix"
-$topOrganizationUnit = "OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-$tierZeroOU = "OU=Tier0-Control,OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-$tierOneOU = "OU=Tier1-Management,OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-$tierTwoOU = "OU=Tier2-Users,OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-
-Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,DC=ADLAB,DC=HOME" -Description "Primary Domain Controller"
-
-# Create Top level container and Tiers
-New-ADOrganizationalUnit -Name "Hierarchy-Top"
-New-ADOrganizationalUnit -Name "Tier0-Control" -Path $topOrganizationUnit
-New-ADOrganizationalUnit -Name "Tier1-Management" -Path $topOrganizationUnit
-New-ADOrganizationalUnit -Name "Tier2-Users" -Path $topOrganizationUnit
-
-# Create Tier0-Control Structure
-New-ADOrganizationalUnit -Name "Domain-Controllers" -Path $tierZeroOU
-New-ADOrganizationalUnit -Name "Tier0-Admin-Accounts" -Path $tierZeroOU
-New-ADOrganizationalUnit -Name "Tier0-Infrastructure-Servers" -Path $tierZeroOU
-New-ADOrganizationalUnit -Name "Tier0-Security-Groups" -Path $tierZeroOU
-New-ADOrganizationalUnit -Name "Tier0-Service-Accounts" -Path $tierZeroOU
-
-# Create Tier1-Management Structure
-New-ADOrganizationalUnit -Name "Tier1-Admin-Accounts" -Path $tierOneOU
-New-ADOrganizationalUnit -Name "Tier1-Admin-Workstations" -Path $tierOneOU
-New-ADOrganizationalUnit -Name "Tier1-Security-Groups" -Path $tierOneOU
-New-ADOrganizationalUnit -Name "Tier1-Servers" -Path $tierOneOU
-New-ADOrganizationalUnit -Name "Tier1-Service-Accounts" -Path $tierOneOU
-
-# Create Tier2-Users Structure
-New-ADOrganizationalUnit -Name "AD-Standard-Users" -Path $tierTwoOU
-New-ADOrganizationalUnit -Name "Endpoints" -Path $tierTwoOU
-New-ADOrganizationalUnit -Name "Tier2-Local-Admin-Accounts" -Path $tierTwoOU
-New-ADOrganizationalUnit -Name "Tier2-Security-Groups" -Path $tierTwoOU
 
 # Create Domain Admin
 New-ADUser -Name $GivenName" "$SurName" - Tier0 Domain Admin" -AccountPassword(ConvertTo-SecureString -String "password!@#1" -AsPlainText -Force) -DisplayName $GivenName" "$SurName" - Tier0 Domain Admin" -GivenName $GivenName -Surname $SurName" - Tier0 Doamin Admin" -Description "Domain Administrator" -Path "OU=Tier0-Admin-Accounts,OU=Tier0-Control,OU=Hierarchy-Top,DC=ADLAB,DC=HOME" -Enabled $true -SamAccountName "admin-"$FullUserName"" -UserPrincipalName "admin-"$FullUserName"@ADLAB.HOME"
