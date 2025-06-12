@@ -14,6 +14,9 @@ $interfaceIndex = $adapter.ifIndex
 New-NetIPAddress -InterfaceIndex $interfaceIndex -AddressFamily IPv4 -IPAddress $myStaticIP -PrefixLength 24 -DefaultGateway $myGateway
 Set-DnsClientServerAddress -InterfaceIndex $interfaceIndex -ServerAddresses $myDNS
 
+# Set new hostname
+Rename-Computer -NewName $myDCHostname
+
 # Install AD DS and DNS services, Install management tools
 Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
 Install-ADDSForest -DomainName $myDomainName -ForestMode Default -DomainMode Default -DomainNetbiosName $myNetBiosName -InstallDns
