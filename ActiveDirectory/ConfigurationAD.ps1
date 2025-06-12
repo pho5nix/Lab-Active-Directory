@@ -20,6 +20,9 @@ Install-ADDSForest -DomainName $myDomainName -ForestMode Default -DomainMode Def
 # Disable AllowNT4Crypto
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
 
+# Set Hostname
+Rename-Computer -NewName "DC01"
+
 # Add DNS forwarders for Cloudflare and OpenDNS
 Add-DnsServerForwarder -IPAddress $myExternalDNS
 
