@@ -1,5 +1,6 @@
 $myDomainName = "domain.com"
 $myNetBiosName = "domain"
+$myDCHostanme = "DC01"
 $myStaticIP = "172.23.150.50"
 $myGateway = "172.23.150.254"
 $myDNS = ("172.23.150.50","172.23.150.254")
@@ -21,7 +22,7 @@ Install-ADDSForest -DomainName $myDomainName -ForestMode Default -DomainMode Def
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
 
 # Set Hostname
-Rename-Computer -NewName "DC01"
+Rename-Computer -NewName $myDCHostanme
 
 # Add DNS forwarders for Cloudflare and OpenDNS
 Add-DnsServerForwarder -IPAddress $myExternalDNS
