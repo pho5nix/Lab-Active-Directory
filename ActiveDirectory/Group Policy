@@ -1,7 +1,7 @@
 Group Policy Management
-	Expand Forest: AD.LAB
+	Expand Forest: domain.com
 		Expand Domains
-			Expand AD.LAB
+			Expand domain.com
 
 Click Default Domain Policy			
 	Check the Do not show this message again checkbox
@@ -9,10 +9,10 @@ Click Default Domain Policy
 
 Click then Right-click Group Policy Objects
 	New
-		Name: AD Lab User Settings
+		Name: Lab User Settings
 			OK
 
-Click then Right-click AD Lab User Settings
+Click then Right-click Lab User Settings
 	Edit
 	Maximize
 
@@ -145,7 +145,7 @@ Value data: 0
 
 Close Window
 
-Click then Right-click MDT.LAB
+Click then Right-click domain.com
 	Link an Existing GPO...
-		MDT Lab User Settings
+		Lab User Settings
 			OK
