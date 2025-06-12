@@ -18,14 +18,11 @@ Set-DnsClientServerAddress -InterfaceIndex $interfaceIndex -ServerAddresses $myD
 Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
 Install-ADDSForest -DomainName $myDomainName -ForestMode Default -DomainMode Default -DomainNetbiosName $myNetBiosName -InstallDns
 
-# Disable AllowNT4Crypto
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
-
-# Set Hostname
-Rename-Computer -NewName $myDCHostname
-
 # Add DNS forwarders for Cloudflare and OpenDNS
 Add-DnsServerForwarder -IPAddress $myExternalDNS
+
+# Disable AllowNT4Crypto
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters" -Name "AllowNT4Crypto" -Value 0
 
 # Configure NTP server
 w32tm /config /manualpeerlist:"time.windows.com" /syncfromflags:MANUAL
