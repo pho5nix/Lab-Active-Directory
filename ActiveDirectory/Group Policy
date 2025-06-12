@@ -7,21 +7,21 @@ Click Default Domain Policy
 	Check the Do not show this message again checkbox
 		OK
 
-Click then Right-click Group Policy Objects
+Right-click Group Policy Objects
 	New
-		Name: Lab User Settings
-			OK
+	Name: Lab User Settings
+	OK
 
-Click then Right-click Lab User Settings
+Right-click Lab User Settings
 	Edit
 	Maximize
 
 User Configuration
 	Preferences
-		Windows Settings
-			Click then Right-click Registry
-				New
-					Registry Item
+	Windows Settings
+		Right-click Registry
+		New
+		Registry Item
 
 Hive: HKEY_CURRENT_USER
 Key Path: Control Panel\Desktop
