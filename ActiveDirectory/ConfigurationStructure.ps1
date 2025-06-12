@@ -45,7 +45,7 @@ Add-ADGroupMember -Identity 'Domain Admins' -Members "admin-$fullUserName"
 Add-ADGroupMember -Identity 'Enterprise Admins' -Members "admin-$fullUserName"
 
 # Create a Standard account
-New-ADUser -Name $givenName" "$surName -AccountPassword(ConvertTo-SecureString -String "passPhrase" -AsPlainText -Force) -DisplayName $givenName" "$surName -GivenName $givenName -Surname $surName -Description "Standard User Account" -Path "OU=AD-Standard-Users,OU=Tier2-Users,OU=Valentine,DC=domain,DC=com" -Enabled $true -SamAccountName $fullUserName -UserPrincipalName "$fullUserName@domain.com"
+New-ADUser -Name $givenName" "$surName -AccountPassword(ConvertTo-SecureString -String $passPhrase -AsPlainText -Force) -DisplayName $givenName" "$surName -GivenName $givenName -Surname $surName -Description "Standard User Account" -Path "OU=AD-Standard-Users,OU=Tier2-Users,OU=Valentine,DC=domain,DC=com" -Enabled $true -SamAccountName $fullUserName -UserPrincipalName "$fullUserName@domain.com"
 
 # Create AD Group
 # New-ADGroup -Name "SQL Admins" -SamAccountName "SQL Admins" -GroupCategory Security -GroupScope Global -DisplayName "SQL Admins" -Path "OU=Groups,OU=LAB,DC=AD,DC=LAB" -Description "Members of this group are SQL Administrators"
