@@ -1,15 +1,13 @@
 Import-Module ActiveDirectory
 
-$givenName = "GM"
-$surName = "Phoenix"
-$fullUserName = "gmphoenix"
-$passPhrase = "password!@#1"
-$topOrganizationUnit = "OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-$tierZeroOU = "OU=Tier0-Control,OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-$tierOneOU = "OU=Tier1-Management,OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-$tierTwoOU = "OU=Tier2-Users,OU=Hierarchy-Top,DC=ADLAB,DC=HOME"
-
-Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,DC=ADLAB,DC=HOME" -Description "Primary Domain Controller"
+$givenName = "Arthur"
+$surName = "Morgan"
+$fullUserName = "arthurmorgan"
+$passPhrase = "Password!@#1"
+$topOrganizationUnit = "OU=Valentine,DC=domain,DC=com"
+$tierZeroOU = "OU=Tier0-Control,OU=Valentine,DC=domain,DC=com"
+$tierOneOU = "OU=Tier1-Management,OU=Valentine,DC=domain,DC=com"
+$tierTwoOU = "OU=Tier2-Users,OU=Valentine,DC=domain,DC=com"
 
 # Create Top level container and Tiers
 New-ADOrganizationalUnit -Name "Hierarchy-Top"
@@ -23,6 +21,8 @@ New-ADOrganizationalUnit -Name "Tier0-Admin-Accounts" -Path $tierZeroOU
 New-ADOrganizationalUnit -Name "Tier0-Infrastructure-Servers" -Path $tierZeroOU
 New-ADOrganizationalUnit -Name "Tier0-Security-Groups" -Path $tierZeroOU
 New-ADOrganizationalUnit -Name "Tier0-Service-Accounts" -Path $tierZeroOU
+
+Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,OU=Tier0-Control,OU=Valentine,DC=domain,DC=com" -Description "Primary Domain Controller"
 
 # Create Tier1-Management Structure
 New-ADOrganizationalUnit -Name "Tier1-Admin-Accounts" -Path $tierOneOU
@@ -38,7 +38,7 @@ New-ADOrganizationalUnit -Name "Tier2-Local-Admin-Accounts" -Path $tierTwoOU
 New-ADOrganizationalUnit -Name "Tier2-Security-Groups" -Path $tierTwoOU
 
 # Create Domain Admin
-New-ADUser -Name $givenName" "$surName" - Tier0 Domain Admin" -AccountPassword(ConvertTo-SecureString -String $passPhrase -AsPlainText -Force) -DisplayName $givenName" "$surName" - Tier0 Domain Admin" -GivenName $givenName -Surname $surName" - Tier0 Doamin Admin" -Description "Domain Administrator" -Path "OU=Tier0-Admin-Accounts,OU=Tier0-Control,OU=Hierarchy-Top,DC=ADLAB,DC=HOME" -Enabled $true -SamAccountName "admin-"$fullUserName"" -UserPrincipalName "admin-"$fullUserName"@ADLAB.HOME"
+New-ADUser -Name $givenName" $surName - Tier0 Domain Admin" -AccountPassword(ConvertTo-SecureString -String $passPhrase -AsPlainText -Force) -DisplayName $givenName" $surName - Tier0 Domain Admin" -GivenName $givenName -Surname $surName" - Tier0 Doamin Admin" -Description "Domain Administrator" -Path "OU=Tier0-Admin-Accounts,OU=Tier0-Control,OU=Valentine,DC=domain,DC=com" -Enabled $true -SamAccountName "admin-"$fullUserName -UserPrincipalName "admin-"$fullUserName"@domain.com"
 Set-ADUser -Identity "admin-"$fullUserName -PasswordNeverExpires $true
 
 Add-ADGroupMember -Identity 'Domain Admins' -Members "admin-"$fullUserName
