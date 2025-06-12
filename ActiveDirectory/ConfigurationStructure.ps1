@@ -10,7 +10,7 @@ $tier1OU = "OU=Tier1-Management,OU=Valentine,DC=domain,DC=com"
 $tier2OU = "OU=Tier2-Users,OU=Valentine,DC=domain,DC=com"
 
 # Create Top level container and Tiers
-New-ADOrganizationalUnit -Name "Hierarchy-Top"
+New-ADOrganizationalUnit -Name "Valentine"
 New-ADOrganizationalUnit -Name "Tier0-Control" -Path $topOU
 New-ADOrganizationalUnit -Name "Tier1-Management" -Path $topOU
 New-ADOrganizationalUnit -Name "Tier2-Users" -Path $topOU
@@ -35,7 +35,7 @@ New-ADOrganizationalUnit -Name "Endpoints" -Path $tier2OU
 New-ADOrganizationalUnit -Name "Tier2-Local-Admin-Accounts" -Path $tier2OU
 New-ADOrganizationalUnit -Name "Tier2-Security-Groups" -Path $tier2OU
 
-Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,OU=Tier0-Control,OU=Valentine,DC=domain,DC=com" -Description "Primary Domain Controller"
+Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,DC=domain,DC=com" -Description "Primary Domain Controller"
 
 # Create Domain Admin
 New-ADUser -Name $givenName" $surName - Tier0 Domain Admin" -AccountPassword(ConvertTo-SecureString -String $passPhrase -AsPlainText -Force) -DisplayName $givenName" $surName - Tier0 Domain Admin" -GivenName $givenName -Surname "$surName - Tier0 Doamin Admin" -Description "Domain Administrator" -Path "OU=Tier0-Admin-Accounts,OU=Tier0-Control,OU=Valentine,DC=domain,DC=com" -Enabled $true -SamAccountName "admin- $fullUserName" -UserPrincipalName "admin-$fullUserName@domain.com"
