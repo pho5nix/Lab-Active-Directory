@@ -1,6 +1,3 @@
-Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
-Install-ADDSForest -DomainName ADLAB.HOME -ForestMode Default -DomainMode Default -DomainNetbiosName ADLAB -InstallDns
-
 Import-Module ActiveDirectory
 
 $givenName = "GM"
