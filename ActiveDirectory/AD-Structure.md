@@ -84,10 +84,12 @@
 
 1. Enhanced Security Isolation
 Separate OUs for users and computers to enable precise Group Policy application and delegation.
+
 https://www.manageengine.com/products/active-directory-audit/kb/best-practices/active-directory-ou-best-practices.html
 https://www.tenfold-security.com/en/organizational-unit/
 
 The most important tip is to group user and computer objects into separate organizational units.
+
 https://www.cayosoft.com/active-directory-best-practices/
 
 3. Service Account Segregation
@@ -95,6 +97,7 @@ Dedicated service account OUs at each tier to prevent credential theft through s
 
 4. Emergency Access
 Break-glass accounts for emergency access when normal authentication fails.
+
 https://www.cayosoft.com/active-directory-ou/
 
 # Implementation Best Practices:
@@ -106,19 +109,23 @@ https://www.cayosoft.com/active-directory-ou/
 
 ## Group Policy Strategy
 Link GPOs to OUs rather than containers, use inheritance for efficient policy management.
+
 https://www.tenfold-security.com/en/organizational-unit/
 https://activedirectorypro.com/active-directory-management-tips/
 
 ## Administrative Delegation
 Delegate permissions to security groups rather than individual accounts for easier management.
+
 https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/reviewing-ou-design-concepts
 
 ## Protection Settings
 Enable "Protect object from accidental deletion" on all critical OUs.
+
 https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/reviewing-ou-design-concepts
 
 ## Security Enhancements for Windows Server 2025:
 New Windows Server 2025 features include delegated Managed Service Accounts (dMSA), improved Kerberos settings, and enhanced LAPS integration.
+
 https://techcommunity.microsoft.com/blog/microsoft-security-baselines/windows-server-2025-security-baseline/4358733
 
 ## Additional Considerations:
