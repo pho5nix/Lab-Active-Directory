@@ -1,6 +1,5 @@
 $myDomainName = "domain.com"
 $myNetBiosName = "domain"
-$myDCHostname = "DC01"
 $myStaticIP = "172.23.150.50"
 $myGateway = "172.23.150.254"
 $myDNS = ("172.23.150.50","172.23.150.254")
