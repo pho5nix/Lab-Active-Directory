@@ -33,15 +33,25 @@ OU=Tier1-Management,DC=domain,DC=com
 # Tier 2 (Data/Workload) - End User Environment
 
 OU=Tier2-Users,DC=domain,DC=com
+
 ├── OU=Standard-Users
+
 │   ├── OU=Employees
+
 │   ├── OU=Contractors
+
 │   ├── OU=Service-Desk
+
 │   └── OU=Disabled-Users
+
 ├── OU=Workstations
+
 │   ├── OU=Workstations
+
 │   ├── OU=Laptops
+
 ├── OU=Tier2-Security-Groups
+
 ├── OU=Tier2-Local-Admin-Accounts
 
 
