@@ -19,6 +19,7 @@ net stop w32time
 net start w32time
 w32tm /resync
 
+# Install AD DS and DNS services, Install management tools
 Install-WindowsFeature AD-Domain-Services,DNS -IncludeManagementTools
 Install-ADDSForest -DomainName $myDomainName -ForestMode Default -DomainMode Default -DomainNetbiosName $myNetBiosName -InstallDns
 
