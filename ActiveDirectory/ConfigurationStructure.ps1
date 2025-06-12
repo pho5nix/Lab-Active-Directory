@@ -39,7 +39,7 @@ Set-ADComputer -Identity "CN=DC01,OU=Domain Controllers,DC=domain,DC=com" -Descr
 
 # Create Domain Admin
 New-ADUser -Name $givenName" $surName - Tier0 Domain Admin" -AccountPassword(ConvertTo-SecureString -String $passPhrase -AsPlainText -Force) -DisplayName $givenName" $surName - Tier0 Domain Admin" -GivenName $givenName -Surname "$surName - Tier0 Doamin Admin" -Description "Domain Administrator" -Path "OU=Tier0-Admin-Accounts,OU=Tier0-Control,OU=Valentine,DC=domain,DC=com" -Enabled $true -SamAccountName "admin- $fullUserName" -UserPrincipalName "admin-$fullUserName@domain.com"
-Set-ADUser -Identity "admin-"$fullUserName -PasswordNeverExpires $true
+Set-ADUser -Identity "admin-$fullUserName" -PasswordNeverExpires $true
 
 Add-ADGroupMember -Identity 'Domain Admins' -Members "admin-"$fullUserName
 Add-ADGroupMember -Identity 'Enterprise Admins' -Members "admin-"$fullUserName
