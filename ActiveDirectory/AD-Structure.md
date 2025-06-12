@@ -87,14 +87,14 @@ Separate OUs for users and computers to enable precise Group Policy application 
 https://www.manageengine.com/products/active-directory-audit/kb/best-practices/active-directory-ou-best-practices.html
 https://www.tenfold-security.com/en/organizational-unit/
 
-The most important tip is to group user and computer objects into separate organizational units
-https://www.cayosoft.com/active-directory-best-practices/).
+The most important tip is to group user and computer objects into separate organizational units.
+https://www.cayosoft.com/active-directory-best-practices/
 
 3. Service Account Segregation
 Dedicated service account OUs at each tier to prevent credential theft through service account compromise.
 
 4. Emergency Access
-Break-glass accounts for emergency access when normal authentication fails 
+Break-glass accounts for emergency access when normal authentication fails.
 https://www.cayosoft.com/active-directory-ou/
 
 # Implementation Best Practices:
@@ -105,25 +105,25 @@ https://www.cayosoft.com/active-directory-ou/
 - Use hyphens for readability
 
 ## Group Policy Strategy
-Link GPOs to OUs rather than containers, use inheritance for efficient policy management 
+Link GPOs to OUs rather than containers, use inheritance for efficient policy management.
 https://www.tenfold-security.com/en/organizational-unit/
 https://activedirectorypro.com/active-directory-management-tips/
 
 ## Administrative Delegation
-Delegate permissions to security groups rather than individual accounts for easier management 
+Delegate permissions to security groups rather than individual accounts for easier management.
 https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/reviewing-ou-design-concepts
 
 ## Protection Settings
-Enable "Protect object from accidental deletion" on all critical OUs 
+Enable "Protect object from accidental deletion" on all critical OUs.
 https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/reviewing-ou-design-concepts
 
 ## Security Enhancements for Windows Server 2025:
-New Windows Server 2025 features include delegated Managed Service Accounts (dMSA), improved Kerberos settings, and enhanced LAPS integration 
+New Windows Server 2025 features include delegated Managed Service Accounts (dMSA), improved Kerberos settings, and enhanced LAPS integration.
 https://techcommunity.microsoft.com/blog/microsoft-security-baselines/windows-server-2025-security-baseline/4358733
 
 ## Additional Considerations:
 
-- LAPS Implementation: Deploy Local Administrator Password Solution across all computer OUs
-- Authentication Policies: Implement Kerberos authentication policies for Tier 0 protection
-- Audit Policies: Enhanced auditing for privileged account activities
-- Time-bound Access: Consider implementing Just-In-Time (JIT) access for administrative accounts
+- LAPS Implementation: Deploy Local Administrator Password Solution across all computer OUs.
+- Authentication Policies: Implement Kerberos authentication policies for Tier 0 protection.
+- Audit Policies: Enhanced auditing for privileged account activities.
+- Time-bound Access: Consider implementing Just-In-Time (JIT) access for administrative accounts.
