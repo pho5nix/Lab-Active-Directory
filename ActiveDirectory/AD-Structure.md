@@ -8,9 +8,9 @@
 
 ├── OU=Tier0-Infrastructure-Servers
 
-│   ├── OU=Certificate-Authorities
+│------├── OU=Certificate-Authorities
 
-│   ├── OU=DNS-Servers
+│------├── OU=DNS-Servers
 
 ├── OU=Tier0-Service-Accounts
 
@@ -18,11 +18,11 @@
 
 └── OU=Tier0-Admin-Accounts
 
-│   ├── OU=Domain-Enterprise-Admins                              
+│------├── OU=Domain-Enterprise-Admins                              
    
-│   ├── OU=Schema-Admins
+│------├── OU=Schema-Admins
     
-│   └── OU=Break-Glass-Accounts
+│------└── OU=Break-Glass-Accounts
 
 ## Tier 1 (Management) - Enterprise Infrastructure
 
@@ -30,17 +30,17 @@
 
 ├── OU=Tier1-Servers
 
-│   ├── OU=Database-Servers
+│------├── OU=Database-Servers
 
-│   ├── OU=Application-Servers
+│------├── OU=Application-Servers
 
-│   ├── OU=File-Print-Servers
+│------├── OU=File-Print-Servers
 
-│   ├── OU=Web-Servers
+│------├── OU=Web-Servers
 
-│   ├── OU=Exchange-Servers
+│------├── OU=Exchange-Servers
 
-│   └── OU=Backup-Servers
+│------└── OU=Backup-Servers
 
 ├── OU=Tier1-Service-Accounts
 
@@ -50,11 +50,11 @@
 
 └── OU=Tier1-Admin-Accounts
 
-│   ├── OU=Server-Administrators
+│------├── OU=Server-Administrators
     
-│   ├── OU=Database-Administrators
+│------├── OU=Database-Administrators
     
-│   └── OU=Application-Administrators
+│------└── OU=Application-Administrators
 
 
 ## Tier 2 (Data/Workload) - End User Environment
@@ -63,19 +63,19 @@
 
 ├── OU=Standard-Users
 
-│   ├── OU=Employees
+│------├── OU=Employees
 
-│   ├── OU=Contractors
+│------├── OU=Contractors
 
-│   ├── OU=Service-Desk
+│------├── OU=Service-Desk
 
-│   └── OU=Disabled-Users
+│------└── OU=Disabled-Users
 
 ├── OU=Endpoints
 
-│   ├── OU=Workstations
+│------├── OU=Workstations
 
-│   ├── OU=Laptops
+│------├── OU=Laptops
 
 ├── OU=Tier2-Security-Groups
 
