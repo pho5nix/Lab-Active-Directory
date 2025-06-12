@@ -2,7 +2,7 @@ $myDomainName = "domain.com"
 $myNetBiosName = "domain"
 $myStaticIP = "172.23.150.50"
 $myGateway = "172.23.150.254"
-$myDNS = "("172.23.150.50","172.23.150.254")"
+$myDNS = ("172.23.150.50","172.23.150.254")
 $myExternalDNS = "1.1.1.1, 208.67.222.222"
 
 # Find the interface to set the IP address
