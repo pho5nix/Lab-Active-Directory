@@ -18,11 +18,11 @@
 
 └── OU=Tier0-Admin-Accounts
 
-   ├── OU=Domain-Enterprise-Admins
+    ├── OU=Domain-Enterprise-Admins
    
-   ├── OU=Schema-Admins
+    ├── OU=Schema-Admins
     
-   └── OU=Break-Glass-Accounts
+    └── OU=Break-Glass-Accounts
 
 ## Tier 1 (Management) - Enterprise Infrastructure
 
