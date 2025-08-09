@@ -1,10 +1,6 @@
 ## Archtecture Diagram
-<div align="center">
-  <img src="./Images/AD-Tiering-Structure.png" alt="AD Tiering Model" width="100%">
-  <br>
-  <em>Active Directory Tiering Model - Security Architecture</em>
-</div>
-
+<!-- ![AD Tiering Model](./Images/AD-Tiering-Structure.png) -->
+<img src="./Images/AD-Tiering-Structure.png" alt="AD Tiering Model" width="100%">
 
 # Tiering Model - On Premise Active Directory
 
