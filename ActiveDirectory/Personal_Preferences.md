@@ -26,13 +26,12 @@ Windows Administrative Tools
 | 5️⃣ | Dynamic Updates | **Allow only secure dynamic updates** → Next |
 | 6️⃣ | Complete | **Finish** |
 
-<details>
+
 <summary>💡 Quick Command Alternative</summary>
 
 ```powershell
 Add-DnsServerPrimaryZone -NetworkID "172.23.150.0/24" -ReplicationScope "Forest" -DynamicUpdate "Secure"
 ```
-</details>
 
 ---
 
