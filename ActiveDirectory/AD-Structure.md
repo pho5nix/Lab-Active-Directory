@@ -9,15 +9,25 @@
 *OU=Tier0-Control,DC=domain,DC=com*
 
 📁 Tier0-Control/
+
 ├── 📁 Domain-Controllers/
+
 ├── 📁 Tier0-Infrastructure-Servers/
+
 │   ├── 📁 Certificate-Authorities/
+
 │   └── 📁 DNS-Servers/
+
 ├── 📁 Tier0-Service-Accounts/
+
 ├── 📁 Tier0-Security-Groups/
+
 └── 📁 Tier0-Admin-Accounts/
+
     ├── 📁 Domain-Enterprise-Admins/
+    
     ├── 📁 Schema-Admins/
+    
     └── 📁 Break-Glass-Accounts/
 
 
