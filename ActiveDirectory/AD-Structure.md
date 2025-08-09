@@ -1,6 +1,6 @@
 ## Archtecture Diagram
 <div align="center">
-  <img src="./Images/AD-Tiering-Structure.png" alt="AD Tiering Model" width="1100">
+  <img src="./Images/AD-Tiering-Structure.png" alt="AD Tiering Model" width="1300">
   <br>
   <em>Active Directory Tiering Model - Security Architecture</em>
 </div>
