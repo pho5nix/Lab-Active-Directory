@@ -6,8 +6,7 @@
 
 ## Tier 0 (Control) - Domain Identity Infrastructure
 
-*OU=Tier0-Control,DC=domain,DC=com*
-
+Root:OU=Tier0-Control,DC=domain,DC=com
 <pre>
 📁 Tier0-Control/
 ├── 📁 Domain-Controllers/
@@ -22,83 +21,43 @@
     └── 📁 Break-Glass-Accounts/
 </pre>
 
-
-├── OU=Domain-Controllers (keep default but organize under Tier0)
-
-├── OU=Tier0-Infrastructure-Servers
-
-│------├── OU=Certificate-Authorities
-
-│------├── OU=DNS-Servers
-
-├── OU=Tier0-Service-Accounts
-
-├── OU=Tier0-Security-Groups
-
-└── OU=Tier0-Admin-Accounts
-
-│------├── OU=Domain-Enterprise-Admins                              
-   
-│------├── OU=Schema-Admins
-    
-│------└── OU=Break-Glass-Accounts
-
 ## Tier 1 (Management) - Enterprise Infrastructure
 
-*OU=Tier1-Management,DC=domain,DC=com*
-
-├── OU=Tier1-Servers
-
-│------├── OU=Database-Servers
-
-│------├── OU=Application-Servers
-
-│------├── OU=File-Print-Servers
-
-│------├── OU=Web-Servers
-
-│------├── OU=Exchange-Servers
-
-│------└── OU=Backup-Servers
-
-├── OU=Tier1-Service-Accounts
-
-├── OU=Tier1-Security-Groups
-
-├── OU=Tier1-Admin-Workstations
-
-└── OU=Tier1-Admin-Accounts
-
-│------├── OU=Server-Administrators
-    
-│------├── OU=Database-Administrators
-    
-│------└── OU=Application-Administrators
-
+Root: OU=Tier1-Management,DC=domain,DC=com
+<pre>
+📁 Tier1-Management/
+├── 📁 Tier1-Servers/
+│   ├── 📁 Database-Servers/
+│   ├── 📁 Application-Servers/
+│   ├── 📁 File-Print-Servers/
+│   ├── 📁 Web-Servers/
+│   ├── 📁 Exchange-Servers/
+│   └── 📁 Backup-Servers/
+├── 📁 Tier1-Service-Accounts/
+├── 📁 Tier1-Security-Groups/
+├── 📁 Tier1-Admin-Workstations/
+└── 📁 Tier1-Admin-Accounts/
+    ├── 📁 Server-Administrators/
+    ├── 📁 Database-Administrators/
+    └── 📁 Application-Administrators/
+</pre>
 
 ## Tier 2 (Data/Workload) - End User Environment
 
-*OU=Tier2-Users,DC=domain,DC=com*
-
-├── OU=Standard-Users
-
-│------├── OU=Employees
-
-│------├── OU=Contractors
-
-│------├── OU=Service-Desk
-
-│------└── OU=Disabled-Users
-
-├── OU=Endpoints
-
-│------├── OU=Workstations
-
-│------├── OU=Laptops
-
-├── OU=Tier2-Security-Groups
-
-├── OU=Tier2-Local-Admin-Accounts
+Root: OU=Tier2-Users,DC=domain,DC=com
+<pre>
+📁 Tier2-Users/
+├── 📁 Standard-Users/
+│   ├── 📁 Employees/
+│   ├── 📁 Contractors/
+│   ├── 📁 Service-Desk/
+│   └── 📁 Disabled-Users/
+├── 📁 Endpoints/
+│   ├── 📁 Workstations/
+│   └── 📁 Laptops/
+├── 📁 Tier2-Security-Groups/
+└── 📁 Tier2-Local-Admin-Accounts/
+</pre>
 
 
 ## Structure Management & Practices
