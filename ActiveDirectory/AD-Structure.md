@@ -1,7 +1,7 @@
+# Tiering Model - On Premise Active Directory
+
 ## Archtecture Diagram
 ![AD Tiering Model](./Images/AD-Tiering-Structure.png)
-
-# Tiering Model - On Premise Active Directory
 
 ## Tier 0 (Control) - Domain Identity Infrastructure
 
