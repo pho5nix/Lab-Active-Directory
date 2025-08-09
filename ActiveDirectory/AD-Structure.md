@@ -1,6 +1,6 @@
 ## Archtecture Diagram
-## Architecture Diagram
-<img src="https://github.com/pho5nix/Lab-Active-Directory/blob/main/ActiveDirectory/Images/AD-Tiering-Structure.png" width="1200">
+[![AD Tiering Model](./Images/AD-Tiering-Structure.png)](./Images/AD-Tiering-Structure.png)
+*Click image to open full size in new tab*
 
 # Tiering Model - On Premise Active Directory
 
