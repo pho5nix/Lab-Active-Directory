@@ -75,10 +75,10 @@ Configuration
 
 | Action | Details |
 |--------|---------|
-| 1️⃣ **Find** | Property: `extraColumns` |
-| 2️⃣ **Edit** | Click Edit button |
-| 3️⃣ **Add Value** | `operatingSystem,Operating System,0,200,0` |
-| 4️⃣ **Confirm** | Add → OK → Apply → OK |
+| 1️ **Find** | Property: `extraColumns` |
+| 2 **Edit** | Click Edit button |
+| 3 **Add Value** | `operatingSystem,Operating System,0,200,0` |
+| 4 **Confirm** | Add → OK → Apply → OK |
 
 > 📝 **Note:** The format is: `attributeName,Display Name,unused,width,unused`
 
@@ -119,32 +119,7 @@ Active Directory Users and Computers (Maximize window)
 4. Click **Add →**
 5. Click **OK**
 
----
 
-## 🎯 Quick Reference Card
-
-### Common Paths
-| Tool | Path |
-|------|------|
-| **DNS Manager** | `Windows Administrative Tools → DNS` |
-| **ADSI Edit** | `Windows Administrative Tools → ADSI Edit` |
-| **AD Users & Computers** | `Windows Administrative Tools → Active Directory Users and Computers` |
-
-### Keyboard Shortcuts
-| Action | Shortcut |
-|--------|----------|
-| Refresh | `F5` |
-| Properties | `Alt + Enter` |
-| New Object | `Ctrl + N` |
-
-### Common Values
-| Setting | Value |
-|---------|-------|
-| **Network ID** | `172.23.150` |
-| **Forest** | `ADLAB.HOME` |
-| **Locale ID** | `409` (English-US) |
-
----
 
 ## 📚 Additional Notes
 
