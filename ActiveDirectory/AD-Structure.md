@@ -8,6 +8,7 @@
 
 *OU=Tier0-Control,DC=domain,DC=com*
 
+<pre>
 📁 Tier0-Control/
 ├── 📁 Domain-Controllers/
 ├── 📁 Tier0-Infrastructure-Servers/
@@ -19,7 +20,7 @@
     ├── 📁 Domain-Enterprise-Admins/
     ├── 📁 Schema-Admins/
     └── 📁 Break-Glass-Accounts/
-
+</pre>
 
 
 ├── OU=Domain-Controllers (keep default but organize under Tier0)
