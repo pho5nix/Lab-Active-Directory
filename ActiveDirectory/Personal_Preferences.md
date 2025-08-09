@@ -1,11 +1,4 @@
-# 🛠️ Active Directory Personal Preferences Reference
-
-## 📌 Quick Navigation
-- [Create Reverse Lookup Zone](#-create-reverse-lookup-zone)
-- [Add Preferred Columns to ADSI](#-add-preferred-columns-to-adsi)
-- [View Operating System Column](#-view-operating-system-column)
-
----
+# 🛠️ Active Directory Personal Preferences
 
 ## 🔄 Create Reverse Lookup Zone
 
