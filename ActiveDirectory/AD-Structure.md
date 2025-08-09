@@ -1,5 +1,5 @@
 ## Archtecture Diagram
-![AD Tiering Model](./images/AD-Tiering-Structure.png)
+![AD Tiering Model](./Images/AD-Tiering-Structure.png)
 
 
 # Tiering Model - On Premise Active Directory
