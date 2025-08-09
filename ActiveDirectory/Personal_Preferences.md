@@ -123,5 +123,3 @@ Active Directory Users and Computers (Maximize window)
 > 🔒 **Security:** "Allow only secure dynamic updates" ensures DNS records are protected by Active Directory authentication.
 
 ---
-
-*Last Updated: Documentation for AD Lab Environment*
