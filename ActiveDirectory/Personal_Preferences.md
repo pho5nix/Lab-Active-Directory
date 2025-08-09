@@ -67,10 +67,10 @@ Configuration
 
 | Action | Details |
 |--------|---------|
-|    1️. **Find** | Property: `extraColumns` |
-|    2. **Edit** | Click Edit button |
-|    3. **Add Value** | `operatingSystem,Operating System,0,200,0` |
-|    4. **Confirm** | Add → OK → Apply → OK |
+|1️. **Find** | Property: `extraColumns` |
+|2. **Edit** | Click Edit button |
+|3. **Add Value** | `operatingSystem,Operating System,0,200,0` |
+|4. **Confirm** | Add → OK → Apply → OK |
 
 > 📝 **Note:** The format is: `attributeName,Display Name,unused,width,unused`
 
