@@ -19,12 +19,12 @@ Windows Administrative Tools
 #### Zone Configuration
 | Step | Setting | Value |
 |------|---------|-------|
-| 1️⃣ | Zone Type | **Primary zone** |
-| 2️⃣ | Replication Scope | **To all DNS servers running on domain controllers in this forest: ADLAB.HOME** |
-| 3️⃣ | Zone Type | **IPv4 Reverse Lookup Zone** → Next |
-| 4️⃣ | Network ID | **172.23.150** → Next |
-| 5️⃣ | Dynamic Updates | **Allow only secure dynamic updates** → Next |
-| 6️⃣ | Complete | **Finish** |
+| 1 | Zone Type | **Primary zone** |
+| 2 | Replication Scope | **To all DNS servers running on domain controllers in this forest: ADLAB.HOME** |
+| 3 | Zone Type | **IPv4 Reverse Lookup Zone** → Next |
+| 4 | Network ID | **172.23.150** → Next |
+| 5 | Dynamic Updates | **Allow only secure dynamic updates** → Next |
+| 6 | Complete | **Finish** |
 
 
 <summary>💡 Quick Command Alternative</summary>
@@ -67,10 +67,10 @@ Configuration
 
 | Action | Details |
 |--------|---------|
-| 1️ **Find** | Property: `extraColumns` |
-| 2 **Edit** | Click Edit button |
-| 3 **Add Value** | `operatingSystem,Operating System,0,200,0` |
-| 4 **Confirm** | Add → OK → Apply → OK |
+| 1️. **Find** | Property: `extraColumns` |
+| 2. **Edit** | Click Edit button |
+| 3. **Add Value** | `operatingSystem,Operating System,0,200,0` |
+| 4. **Confirm** | Add → OK → Apply → OK |
 
 > 📝 **Note:** The format is: `attributeName,Display Name,unused,width,unused`
 
