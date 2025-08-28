@@ -51,7 +51,7 @@ Windows Administrative Tools
 #### Connection Settings
 <pre>
 Select a well known Naming Context:
-    ✅ Configuration → OK
+     Configuration → OK
 </pre>
 
 #### Navigate to Display Specifiers
@@ -86,8 +86,8 @@ Active Directory Users and Computers (Maximize window)
 ### Add Column to Domain Controllers
 
 <pre>
-📁 AD.LAB (Expand)
-    └── 📁 Domain Controllers (Click)
+ AD.LAB (Expand)
+    └──  Domain Controllers (Click)
 </pre>
 
 **Steps:**
@@ -100,8 +100,8 @@ Active Directory Users and Computers (Maximize window)
 ### Add Column to Member Servers
 
 <pre>
-📁 LAB (Expand)
-    └── 📁 Member Servers (Click)
+ LAB (Expand)
+    └──  Member Servers (Click)
 </pre>
 
 **Steps:**
