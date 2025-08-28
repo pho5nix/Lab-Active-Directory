@@ -27,7 +27,7 @@ Windows Administrative Tools
 | 6 | Complete | **Finish** |
 
 
-<summary>💡 Quick Command Alternative</summary>
+<summary> Quick Command Alternative</summary>
 
 ```powershell
 Add-DnsServerPrimaryZone -NetworkID "172.23.150.0/24" -ReplicationScope "Forest" -DynamicUpdate "Secure"
