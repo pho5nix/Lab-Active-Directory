@@ -1,8 +1,8 @@
-# 🛠️ Active Directory Personal Preferences
+# Active Directory Personal Preferences
 
-## 🔄 Create Reverse Lookup Zone
+## Create Reverse Lookup Zone
 
-### 📍 Navigation Path
+### Navigation Path
 ```
 Windows Administrative Tools
 └── DNS
@@ -10,7 +10,7 @@ Windows Administrative Tools
         └── Reverse Lookup Zones (double-click)
 ```
 
-### 🔧 Configuration Steps
+### Configuration Steps
 
 1. **Right-click** `Reverse Lookup Zones`
 2. Select **New Zone...**
@@ -35,22 +35,22 @@ Add-DnsServerPrimaryZone -NetworkID "172.23.150.0/24" -ReplicationScope "Forest"
 
 ---
 
-## 📊 Add Preferred Columns to ADSI
+## Add Preferred Columns to ADSI
 
-### 📍 Navigation Path
+### Navigation Path
 ```
 Windows Administrative Tools
 └── ADSI Edit
 ```
 
-### 🔧 Configuration Steps
+### Configuration Steps
 
 1. **Right-click** `ADSI Edit`
 2. Select **Connect to...**
 
 #### Connection Settings
 <pre>
-📁 Select a well known Naming Context:
+Select a well known Naming Context:
     ✅ Configuration → OK
 </pre>
 
@@ -72,18 +72,18 @@ Configuration
 |3. **Add Value** | `operatingSystem,Operating System,0,200,0` |
 |4. **Confirm** | Add → OK → Apply → OK |
 
-> 📝 **Note:** The format is: `attributeName,Display Name,unused,width,unused`
+> **Note:** The format is: `attributeName,Display Name,unused,width,unused`
 
 ---
 
-## 👁️ View Operating System Column
+##  View Operating System Column
 
-### 📍 Location
+### Location
 ```
 Active Directory Users and Computers (Maximize window)
 ```
 
-### 🔧 Add Column to Domain Controllers
+### Add Column to Domain Controllers
 
 <pre>
 📁 AD.LAB (Expand)
@@ -97,7 +97,7 @@ Active Directory Users and Computers (Maximize window)
 4. Click **Add →**
 5. Click **OK**
 
-### 🔧 Add Column to Member Servers
+### Add Column to Member Servers
 
 <pre>
 📁 LAB (Expand)
@@ -113,12 +113,12 @@ Active Directory Users and Computers (Maximize window)
 
 
 
-## 📚 Additional Notes
+## Additional Notes
 
-> ⚠️ **Important:** Always ensure you have proper administrative privileges before making these changes.
+> **Important:** Always ensure you have proper administrative privileges before making these changes.
 
-> 💡 **Tip:** The Operating System column helps quickly identify server versions across your infrastructure.
+> **Tip:** The Operating System column helps quickly identify server versions across your infrastructure.
 
-> 🔒 **Security:** "Allow only secure dynamic updates" ensures DNS records are protected by Active Directory authentication.
+> **Security:** "Allow only secure dynamic updates" ensures DNS records are protected by Active Directory authentication.
 
 ---
